@@ -1,0 +1,11 @@
+.footer {
+    grid-row: -2 / -1;
+    background-color: var(--color-overlay-dark);
+    font-size: 1.2rem;
+    text-align: center;
+    align-self: end;
+
+    & > p {
+        padding: 1.2rem;
+    }
+}

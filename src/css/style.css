@@ -1,0 +1,185 @@
+/*  Bdget-App stylesheet  */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --color-primary: rgb(37, 195, 37);
+  --color-secondary: rgb(207, 38, 38);
+  --color-grey-light: rgb(253, 239, 239);
+  --color-grey-dark: rgb(31, 30, 30);
+  --color-overlay-dark: rgba(0,0,0,.5);
+  --font-big: 7rem;
+  --font-medium: 2.8rem;
+  --font-small: 2.4rem;
+  --font-xsmall: 2.0rem;
+  --font-standard: 1.6rem ;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: var(--font-standard);
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: minmax(40vmin, 26rem) 1fr 6vmin;
+}
+.container > * {
+  grid-column: 1/-1;
+}
+
+.header {
+  grid-row: 1/2;
+  z-index: 1;
+  text-align: center;
+  background-image: url("../images/back.png");
+  background-image: linear-gradient(to right bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.8)), url("../images/back.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-blend-mode: normal;
+}
+.header__description {
+  text-transform: capitalize;
+  font-weight: normal;
+  font-size: var(--font-medium);
+  line-height: 1.7;
+}
+
+.revenue-net {
+  font-size: var(--font-big);
+  margin-bottom: 2.6rem;
+}
+
+.revenue {
+  width: 40rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 4fr 3fr;
+  grid-template-rows: repeat(2, 3rem);
+  grid-gap: 2.6rem;
+  align-items: center;
+}
+.revenue > * {
+  text-align: left;
+  text-transform: uppercase;
+  padding: 1.5rem;
+}
+.revenue__income {
+  grid-column: 1/-1;
+  grid-row: 1/2;
+  background-color: var(--color-primary);
+}
+.revenue__income--value {
+  grid-column: 2/-1;
+  grid-row: 1/2;
+}
+.revenue__expenses {
+  grid-column: 1/-1;
+  grid-row: 2/3;
+  background-color: var(--color-secondary);
+}
+.revenue__expenses--value {
+  grid-column: 2/-1;
+  grid-row: 2/3;
+}
+
+.budget {
+  grid-row: 2/3;
+  grid-column: 1/-1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.budget__desc {
+  width: 100%;
+  background-color: var(--color-grey-light);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.budget__desc > * {
+  padding: 1.4rem;
+  border-radius: 0.3rem;
+  border: none;
+  outline: none;
+}
+.budget__desc > *:focus {
+  padding: 1.3rem;
+}
+.budget__desc--select {
+  width: 6.5rem;
+}
+.budget__desc--input[type=text] {
+  margin: 1.6rem;
+  width: 35rem;
+}
+.budget__desc--input[type=number] {
+  width: 13rem;
+}
+.budget__calc {
+  width: 100%;
+}
+.budget-table {
+  border-spacing: 2rem;
+  width: 100%;
+  text-align: left;
+}
+.budget-table__head > * {
+  background-color: red;
+}
+.budget-table__head--inc, .budget-table__head--exp {
+  padding: 2rem 0;
+  text-transform: uppercase;
+  width: 40%;
+}
+.budget-table__head--inc {
+  color: var(--color-primary);
+}
+.budget-table__head--exp {
+  color: var(--color-secondary);
+}
+.budget-table__body {
+  width: 100%;
+  background-color: orange;
+}
+.budget-table__body--inc, .budget-table__body--exp {
+  padding: 1rem 0;
+  text-transform: capitalize;
+  width: 40%;
+}
+
+.active-primary {
+  border: 0.1rem solid var(--color-primary);
+}
+
+.active-secondary {
+  border: 0.1rem solid var(--color-secondary);
+}
+
+.footer {
+  grid-row: -2/-1;
+  background-color: var(--color-overlay-dark);
+  font-size: 1.2rem;
+  text-align: center;
+  align-self: end;
+}
+.footer > p {
+  padding: 1.2rem;
+}
+
+/*# sourceMappingURL=style.css.map */

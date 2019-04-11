@@ -1,0 +1,66 @@
+.header {
+    grid-row: 1 / 2;
+    z-index: 1;
+    text-align: center;
+    background-image: url('../images/back.png');
+            background-image: linear-gradient(to right bottom, rgba(0,0,0, .1), rgba(0,0,0, .8)), url('../images/back.png');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-blend-mode: normal;
+    
+    &__description {
+        text-transform: capitalize;
+        font-weight: normal;
+        font-size: var(--font-medium);
+        line-height: 1.7;
+    }
+}
+
+.revenue-net {
+    //text-align: center;
+    font-size: var(--font-big);
+    margin-bottom: 2.6rem;
+}
+
+.revenue {
+    width: 40rem;
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-columns: 4fr 3fr;
+    grid-template-rows: repeat(2, 3rem);
+    grid-gap: 2.6rem;
+    align-items: center;
+
+    & > * {
+        
+        text-align: left;
+        text-transform: uppercase;
+        padding: 1.5rem;     
+    }
+
+    &__income {
+        grid-column: 1 / -1;
+        grid-row: 1 / 2;
+
+        background-color: var(--color-primary);
+
+        &--value {
+            grid-column: 2 / -1;
+            grid-row: 1 / 2;
+        }
+    }
+
+    &__expenses {
+        grid-column: 1 / -1;
+        grid-row: 2 / 3;
+        background-color: var(--color-secondary);
+
+        &--value {
+            grid-column: 2 / -1;
+            grid-row: 2 / 3;
+        }
+    }
+
+}

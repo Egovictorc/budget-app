@@ -9,7 +9,11 @@ class App extends React.Component {
         super(props);
         this.state = {
             select: 'plus',
-            value: {inc: "+0.00", exp: "-0.00"},
+            value: {inc: (0).toFixed(2), exp: (0).toFixed(2)},
+            budget: {
+                value: (0.00).toFixed(2),
+                 sign: "-" 
+            },
 
         }
         this.selectRef = React.createRef();
@@ -37,9 +41,6 @@ class App extends React.Component {
         /*budgetDesc.classList.remove('active-primary', 'active-secondary')
         budgetAmount.classList.remove('active-primary', 'active-secondary')
         */
-       budgetDesc.value="";
-       budgetAmount.value="";
-
         console.log(event.target)
     }
 
@@ -89,34 +90,64 @@ class App extends React.Component {
 
         if(event.which === 13) {
             let value = Number(event.target.value).toFixed(2);
-        if(select.value === "plus" && event.target.id === "budget-amount") {
             
+        if(select.value === "plus" && event.target.id === "budget-amount") {
+            let budget = {
+                sign: (Math.sign(value - this.state.budget.value) === 1) ? "+" : "-"
+            };
+
             this.setState( 
                 (prevState) => ({
                     value: {
-                        inc: `+ ${value}`,
+                        inc: (Number(prevState.value.inc) + Number(value) ).toFixed(2),
                         exp: prevState.value.exp 
-                    }
+                    },
+                    budget: {
+                        sign: budget.sign,
+                        value: (Number(prevState.budget.value) + Number(value)).toFixed(2),
+                    },
+                    
                 })
             )
-        } else if(select.value === "minus" && event.target.id === "budget-amount") {
+            console.log(this.state.budget.value)
+            console.log(typeof this.state.budget.value)
+        } else if(select.value === "minus" &&           event.target.id === "budget-amount") {
+            let budget = {
+                sign: (Math.sign(value - this.state.budget.value) === 1) ? "+" : "-",
+                value: (this.state.value.inc - value).toFixed(2),
+            };
 
             this.setState(
                 (prevState) => ({
                 value: {
-                    exp: `- ${value}`,
+                    exp: (Number(prevState.value.exp) + Number(value) ).toFixed(2),
                     inc: prevState.value.inc,
-                      
+                },
+                budget: {
+                    sign: budget.sign,
+                    value: (Number(prevState.budget.value) - Number(value)).toFixed(2), 
                 }
             }))
+            console.log(this.state.budget.value)
+            console.log(typeof this.state.budget.value)
         } }
 
     }
+/*
+    componentDidMount(prevProps, prevState, snapshot) {
 
+    }
+    shouldComponentUpdate(prevProps, prevState, snapshot) {
+
+    }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+  }
+*/
     render() {
         let header = {
             value__inc: this.state.value.inc,   
-            value__exp: this.state.value.exp,   
+            value__exp: this.state.value.exp,
+            budget: `${this.state.budget.sign} ${this.state.budget.value}`,
         }
 
         let budget = {

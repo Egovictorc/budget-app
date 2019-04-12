@@ -19,19 +19,12 @@ class App extends React.Component {
         this.selectRef = React.createRef();
         this.handleBlur = this.handleBlur.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleClick = this.handleClick.bind(this);
         this.handleFocus = this.handleFocus.bind(this);
         this.handleKeyPress = this.handleKeyPress.bind(this);
         
     }
-    componentDidMount() {
-
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        
-        console.log(this.state.select)
-    }
-
+ 
     handleBlur(event) {
         let select = document.getElementById('budget-select');
         let budgetDesc = document.getElementById('budget-desc'); 
@@ -49,8 +42,9 @@ class App extends React.Component {
         let budgetDesc = document.getElementById('budget-desc');
         let budgetAmount = document.getElementById('budget-amount'); 
 
-        if(select.value === "plus") {               select.classList.add("active-primary");
-        select.classList.remove("active-secondary");
+        if(select.value === "plus") { 
+            select.classList.add("active-primary");
+            select.classList.remove("active-secondary");
             this.setState({
                 select: select.value
             })
@@ -61,10 +55,24 @@ class App extends React.Component {
                 select: select.value
             })
         }
-
         console.log(event.target)
     }
-    
+
+    handleClick(event) {
+        (event.target.id === "budget__reset") && (
+            this.setState({
+                select: 'plus',
+            value: {
+                inc: (0).toFixed(2), 
+                exp: (0).toFixed(2),
+            },
+            budget: {
+                value: (0.00).toFixed(2),
+                sign: "-", 
+            }})
+        )
+    }
+
     handleFocus(event) {
         let select = document.getElementById('budget-select');
         let budgetDesc = document.getElementById('budget-desc'); 
@@ -78,8 +86,7 @@ class App extends React.Component {
         
         select.value === "plus" ? (event.target.classList.add('active-primary')) :
         (event.target.classList.add('active-secondary'));
-        console.log(event.target)
-        
+        console.log(event.target)    
     }
 
     handleKeyPress(event) {
@@ -93,9 +100,9 @@ class App extends React.Component {
             
         if(select.value === "plus" && event.target.id === "budget-amount") {
             let budget = {
-                sign: (Math.sign(value - this.state.budget.value) === 1) ? "+" : "-"
+                sign: (Math.sign(Number(value) + Number(this.state.budget.value) ) === 1) ? "+" : "-",
+                value: (Number(this.state.budget.value) + Number(value)).toFixed(2),
             };
-
             this.setState( 
                 (prevState) => ({
                     value: {
@@ -104,17 +111,23 @@ class App extends React.Component {
                     },
                     budget: {
                         sign: budget.sign,
+                        value: budget.value,
+                        /*
+                        sign: (Math.sign(Number(value) + Number(prevState.budget.value) ) === 1) ? "+" : "-",
                         value: (Number(prevState.budget.value) + Number(value)).toFixed(2),
-                    },
-                    
+                        */
+                    },     
                 })
             )
+            console.log((Math.sign(Number(value) + this.state.budget.value) === 1) ? "+" : "-")
+            ///FOR TEST
             console.log(this.state.budget.value)
             console.log(typeof this.state.budget.value)
-        } else if(select.value === "minus" &&           event.target.id === "budget-amount") {
+        } else if(
+            select.value === "minus" && event.target.id === "budget-amount") {
             let budget = {
-                sign: (Math.sign(value - this.state.budget.value) === 1) ? "+" : "-",
-                value: (this.state.value.inc - value).toFixed(2),
+                sign: (Math.sign(this.state.budget.value - Number(value) ) === 1) ? "+" : "-",
+                value: (Number(this.state.budget.value) - Number(value)).toFixed(2), 
             };
 
             this.setState(
@@ -125,7 +138,10 @@ class App extends React.Component {
                 },
                 budget: {
                     sign: budget.sign,
+                    value: budget.value, 
+                    /*sign: (Math.sign(prevState.budget.value - Number(value) ) === 1) ? "+" : "-",
                     value: (Number(prevState.budget.value) - Number(value)).toFixed(2), 
+                    */
                 }
             }))
             console.log(this.state.budget.value)
@@ -144,18 +160,21 @@ class App extends React.Component {
   }
 */
     render() {
+
         let header = {
             value__inc: this.state.value.inc,   
             value__exp: this.state.value.exp,
-            budget: `${this.state.budget.sign} ${this.state.budget.value}`,
+            budget: this.state.budget.sign === "+" ? `${this.state.budget.sign} ${this.state.budget.value}` : `${this.state.budget.sign} ${Math.abs(this.state.budget.value).toFixed(2)}`,
         }
 
         let budget = {
             handleBlur: this.handleBlur,
             handleChange: this.handleChange,
+            handleClick: this.handleClick,
             handleFocus: this.handleFocus,
             select: this.state.select,
-            keyPress: this.handleKeyPress, 
+            keyPress: this.handleKeyPress,
+            
             
         }
         

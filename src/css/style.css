@@ -11,13 +11,15 @@
   --color-primary: rgb(37, 195, 37);
   --color-secondary: rgb(207, 38, 38);
   --color-grey-light: rgb(253, 239, 239);
-  --color-grey-dark: rgb(31, 30, 30);
+  --color-grey-dark: rgb(209, 202, 202);
   --color-overlay-dark: rgba(0,0,0,.5);
   --font-big: 7rem;
   --font-medium: 2.8rem;
   --font-small: 2.4rem;
   --font-xsmall: 2.0rem;
-  --font-standard: 1.6rem ;
+  --font-standard: 1.6rem;
+  --padding-medium: 1.4rem;
+  --padding-small: 1.2rem;
 }
 
 html {
@@ -68,7 +70,7 @@ body {
   width: 40rem;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 4fr 3fr;
+  grid-template-columns: 5fr 3fr;
   grid-template-rows: repeat(2, 3rem);
   grid-gap: 2.6rem;
   align-items: center;
@@ -103,6 +105,47 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  /*
+      &-table {
+          border-spacing: 2rem;
+          width: 100%;
+          text-align: left;
+  
+          &__head {
+              & > * {
+                  background-color: red;
+              }
+  
+              &--inc,
+              &--exp {
+                  padding: 2rem 0;
+                  text-transform: uppercase;
+                  width: 40%;
+              }
+  
+              &--inc {
+                  color: var(--color-primary);
+              }
+              &--exp {
+                  color: var(--color-secondary);
+              }
+          }
+  
+          &__body {
+              width: 100%;
+              background-color: orange;
+  
+              & > tr {
+                  
+              }
+              &--inc,
+              &--exp {
+                  padding: 1rem 0;
+                  text-transform: capitalize;
+                  width: 40%;
+              }
+          }
+      }*/
 }
 .budget__desc {
   width: 100%;
@@ -121,46 +164,50 @@ body {
 .budget__desc > *:focus {
   padding: 1.3rem;
 }
+.budget__desc > *:not(:last-child) {
+  margin-right: 1.6rem;
+}
 .budget__desc--select {
   width: 6.5rem;
 }
 .budget__desc--input[type=text] {
-  margin: 1.6rem;
   width: 35rem;
 }
 .budget__desc--input[type=number] {
   width: 13rem;
 }
+.budget__desc--reset {
+  text-transform: capitalize;
+  color: var(--color-secondary);
+  background-color: #fff;
+  cursor: pointer;
+}
 .budget__calc {
   width: 100%;
+  display: flex;
+  justify-content: space-evenly;
 }
-.budget-table {
-  border-spacing: 2rem;
-  width: 100%;
-  text-align: left;
+.budget__list {
+  width: 45%;
+  max-width: 50rem;
+  margin-top: 5vmin;
+  display: inline-block;
+  color: #000;
 }
-.budget-table__head > * {
-  background-color: red;
+.budget__item {
+  padding: var(--padding-medium);
+  border-top: 1px solid var(--color-grey-dark);
+  list-style-type: none;
 }
-.budget-table__head--inc, .budget-table__head--exp {
-  padding: 2rem 0;
+.budget__item:first-child {
   text-transform: uppercase;
-  width: 40%;
+  border: none;
 }
-.budget-table__head--inc {
+.budget__item:first-child[data-type=income] {
   color: var(--color-primary);
 }
-.budget-table__head--exp {
+.budget__item:first-child[data-type=expenses] {
   color: var(--color-secondary);
-}
-.budget-table__body {
-  width: 100%;
-  background-color: orange;
-}
-.budget-table__body--inc, .budget-table__body--exp {
-  padding: 1rem 0;
-  text-transform: capitalize;
-  width: 40%;
 }
 
 .active-primary {

@@ -34,6 +34,11 @@ function Budget(props) {
             onKeyPress: props.keyPress,
         }
     }
+    let button = {
+        onClick: props.handleClick,
+        onFocus: props.handleFocus,
+        onBlur: props.handleBlur,
+    }
     
 
     return(
@@ -48,10 +53,23 @@ function Budget(props) {
                 <input type="text" {...input.text} />
 
                 <input type="number" {...input.num} />
+
+                <button id="budget__reset" className="budget__desc--reset" {...button} >reset</button>
             </section>
             
 
             <section className="budget__calc">
+
+                <ul className="budget__list">
+                    <li className="budget__item" data-type="income">income</li>
+                    <li className="budget__item">Transport</li>
+                </ul>
+
+                <ul className="budget__list">
+                    <li className="budget__item" data-type="expenses">expenses</li>
+                    <li className="budget__item">Transport</li>
+                </ul>
+                {/*
                 <table className="budget-table">
                     <thead className="budget-table__head">
                         <tr>
@@ -71,6 +89,8 @@ function Budget(props) {
                         </tr>
                     </tbody>
                 </table>
+                */}
+
             </section>
         </main>
     )

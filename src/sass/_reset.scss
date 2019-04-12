@@ -13,14 +13,19 @@
     --color-primary: rgb(37, 195, 37);
     --color-secondary: rgb(207, 38, 38);
     --color-grey-light: rgb(253, 239, 239);
-    --color-grey-dark: rgb(31, 30, 30);
+    --color-grey-dark: rgb(209, 202, 202);
     --color-overlay-dark: rgba(0,0,0,.5);
     //FONT
     --font-big: 7rem;
     --font-medium: 2.8rem;
     --font-small: 2.4rem;
     --font-xsmall: 2.0rem;
-    --font-standard: 1.6rem
+    --font-standard: 1.6rem;
+
+    //PADDING
+    --padding-medium: 1.4rem;
+    --padding-small: 1.2rem;
+
 }
 html {
     font-size: 62.5%;

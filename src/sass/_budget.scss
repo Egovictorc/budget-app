@@ -81,6 +81,12 @@
         padding: var(--padding-medium);
         border-top: 1px solid var(--color-grey-dark); 
         list-style-type: none;
+        text-transform: capitalize;
+
+        display: grid;
+        grid-template-columns: 5fr 1fr;
+
+        
 
         &:first-child {
             text-transform: uppercase;
@@ -93,6 +99,15 @@
             &[data-type="expenses"] {
                 color: var(--color-secondary);
             }
+        }
+    }
+
+    &__amount {
+        &--inc {
+            color: var(--color-primary);
+        }
+        &--exp {
+            color: var(--color-secondary);
         }
     }
 /*

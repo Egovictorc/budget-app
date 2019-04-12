@@ -6,6 +6,11 @@ import BudgetComputation from './BudgetComputation';
 */
 
 function Budget(props) {
+    /*
+    const inc = props.inc.map( (item, index) => <li key="item" className="budget__item">{item} <span className="budget__amount">{props.current.inc[index]}</span></li>);
+    const exp = props.exp.map( 
+    (item, index) => <li key="item" className="budget__item">{item} <span className="budget__amount">{props.current.exp[index]}</span></li>);
+        */
     let select = {
         onBlur: props.handleBlur, 
         onFocus: props.handleFocus,
@@ -60,14 +65,26 @@ function Budget(props) {
 
             <section className="budget__calc">
 
-                <ul className="budget__list">
+                <ul id="budget-income" className="budget__list budget__list--income">
+                    
                     <li className="budget__item" data-type="income">income</li>
-                    <li className="budget__item">Transport</li>
+                    {/*
+                    <li className="budget__item">Transport <span className="budget-amount"> +&nbsp; {props.value.inc}</span></li>
+                    <li className="budget__item">Transport <span className="budget-amount"> +&nbsp; {props.value.inc}</span></li>
+                    */} 
+                    {props.current.inc}
+                    
                 </ul>
 
-                <ul className="budget__list">
+                <ul id="budget-expense" className="budget__list budget__list--income">
+                    
                     <li className="budget__item" data-type="expenses">expenses</li>
-                    <li className="budget__item">Transport</li>
+                    {/*
+                    <li className="budget__item">Transport <span className="budget__amount">-&nbsp; {props.value.exp}</span></li>
+                    <li className="budget__item">Transport <span className="budget__amount">-&nbsp; {props.value.exp}</span></li>
+                    */}
+                    {props.current.exp}
+                    
                 </ul>
                 {/*
                 <table className="budget-table">

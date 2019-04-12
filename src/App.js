@@ -3,6 +3,7 @@ import './css/style.css';
 import Header from './Header';
 import Budget from './Budget';
 import Footer from './Footer';
+import ErrorBoundary from './ErrorBoundary';
 
 class App extends React.Component {
     constructor(props) {
@@ -14,6 +15,14 @@ class App extends React.Component {
                 value: (0.00).toFixed(2),
                  sign: "-" 
             },
+            desc: {
+                inc: [],
+                exp: [],
+            },
+            current: {
+                inc: [],
+                exp: [],
+            }
 
         }
         this.selectRef = React.createRef();
@@ -59,6 +68,9 @@ class App extends React.Component {
     }
 
     handleClick(event) {
+        let budgetDesc = document.getElementById('budget-desc'); 
+        let budgetAmount = document.getElementById('budget-amount'); 
+        
         (event.target.id === "budget__reset") && (
             this.setState({
                 select: 'plus',
@@ -69,8 +81,18 @@ class App extends React.Component {
             budget: {
                 value: (0.00).toFixed(2),
                 sign: "-", 
-            }})
+            },
+            current: {
+                inc: [],
+                exp: [],
+            },
+        desc: {
+            inc: [],
+            exp: []
+        }})
         )
+        budgetDesc.value = "";
+        budgetAmount.value = "";
     }
 
     handleFocus(event) {
@@ -93,6 +115,8 @@ class App extends React.Component {
         let select = document.getElementById('budget-select');
         let budgetDesc = document.getElementById('budget-desc');
         let budgetAmount = document.getElementById('budget-amount'); 
+        
+
         console.log(event.which)
 
         if(event.which === 13) {
@@ -116,12 +140,22 @@ class App extends React.Component {
                         sign: (Math.sign(Number(value) + Number(prevState.budget.value) ) === 1) ? "+" : "-",
                         value: (Number(prevState.budget.value) + Number(value)).toFixed(2),
                         */
-                    },     
+                    },
+                    desc: {
+                        inc: [...prevState.desc.inc, budgetDesc.value],
+                        exp: prevState.desc.exp,
+                    },
+                    current: {
+                        inc: [...prevState.current.inc, budgetAmount.value],
+                        exp:[...prevState.current.exp]
+                    }     
                 })
             )
             console.log((Math.sign(Number(value) + this.state.budget.value) === 1) ? "+" : "-")
             ///FOR TEST
-            console.log(this.state.budget.value)
+            console.log(`value: ${this.state.budget.value}`)
+            console.log(`current-inc: ${this.state.current.inc} `)
+            console.log(` current-exp: ${this.state.current.exp} `)
             console.log(typeof this.state.budget.value)
         } else if(
             select.value === "minus" && event.target.id === "budget-amount") {
@@ -142,9 +176,19 @@ class App extends React.Component {
                     /*sign: (Math.sign(prevState.budget.value - Number(value) ) === 1) ? "+" : "-",
                     value: (Number(prevState.budget.value) - Number(value)).toFixed(2), 
                     */
+                },
+                desc: {
+                    inc: prevState.desc.inc,
+                    exp: [...prevState.desc.exp, budgetDesc.value],
+                },
+                current: {
+                    inc: [...prevState.current.inc],
+                    exp: [...prevState.current.exp, budgetAmount.value]
                 }
             }))
-            console.log(this.state.budget.value)
+            console.log(`value: ${this.state.budget.value}`)
+            console.log(`current-inc.value: ${this.state.current.inc} `)
+            console.log(` current-exp: ${this.state.current.exp} `)
             console.log(typeof this.state.budget.value)
         } }
 
@@ -160,7 +204,6 @@ class App extends React.Component {
   }
 */
     render() {
-
         let header = {
             value__inc: this.state.value.inc,   
             value__exp: this.state.value.exp,
@@ -174,18 +217,39 @@ class App extends React.Component {
             handleFocus: this.handleFocus,
             select: this.state.select,
             keyPress: this.handleKeyPress,
-            
-            
+            value: {
+                inc: this.state.value.inc,
+                exp: this.state.value.exp
+            },
+            current: {
+                inc: this.state.desc.inc.map( (item, index) =>  { return (
+                    <li className="budget__item" key={`${item}-${index}`} > {item} <span className="budget__amount budget__amount--inc">+&nbsp;{Number(this.state.current.inc[index]).toFixed(2)}</span></li> )}
+                    ),
+                exp: this.state.desc.exp.map( (item, index) => {
+                    return (<li className="budget__item" key={`${item}-${index}`} >{item} <span className="budget__amount budget__amount--exp"> -&nbsp;{Number(this.state.current.exp[index]).toFixed(2)}</span></li>
+                        )
+                    }), 
+            },
+            desc: {     
+                /*inc: <li className="budget__item">{this.state.desc.inc} <span className="budget__amount"> +&nbsp; {this.state.value.inc}</span></li>,
+
+                exp: <li className="budget__item">{this.state.desc.exp} <span className="budget__amount"> +&nbsp; {this.state.value.exp}</span></li>,
+                /*
+                inc: this.state.desc.inc,
+                exp: this.state.desc.exp,*/
+            }  
         }
-        
+
         return(
-            <div className="container">
-                <Header {...header} />
-                
-                <Budget {...budget} />
-                
-                <Footer />
-            </div>
+            <ErrorBoundary>    
+                <div className="container">
+                    <Header {...header} />
+                    
+                    <Budget {...budget}  />
+                    
+                    <Footer />
+                </div>
+            </ErrorBoundary>
         )
     }
 }

@@ -198,6 +198,9 @@ body {
   padding: var(--padding-medium);
   border-top: 1px solid var(--color-grey-dark);
   list-style-type: none;
+  text-transform: capitalize;
+  display: grid;
+  grid-template-columns: 5fr 1fr;
 }
 .budget__item:first-child {
   text-transform: uppercase;
@@ -207,6 +210,12 @@ body {
   color: var(--color-primary);
 }
 .budget__item:first-child[data-type=expenses] {
+  color: var(--color-secondary);
+}
+.budget__amount--inc {
+  color: var(--color-primary);
+}
+.budget__amount--exp {
   color: var(--color-secondary);
 }
 

@@ -1,19 +1,32 @@
 import React from 'react';
 import './css/style.css';
-import Header from './Header';
+//import Header from './Header';
 import Budget from './Budget';
 import Footer from './Footer';
 import ErrorBoundary from './ErrorBoundary';
+
+const Header = React.lazy( ()=> import('./Header'));
+const year = new Date().getFullYear();
+const month = new Date().getMonth();
+let monthArray = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
 
 class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            date: {
+                month: monthArray[month],
+                year: year,
+            },
             select: 'plus',
-            value: {inc: (0).toFixed(2), exp: (0).toFixed(2)},
+            value: {
+                inc: (0).toFixed(2),
+                exp: (0).toFixed(2)
+            },
             budget: {
                 value: (0.00).toFixed(2),
-                 sign: "-" 
+                sign: "-" 
             },
             desc: {
                 inc: [],
@@ -23,8 +36,8 @@ class App extends React.Component {
                 inc: [],
                 exp: [],
             }
-
-        }
+        };
+        
         this.selectRef = React.createRef();
         this.handleBlur = this.handleBlur.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -70,7 +83,7 @@ class App extends React.Component {
     handleClick(event) {
         let budgetDesc = document.getElementById('budget-desc'); 
         let budgetAmount = document.getElementById('budget-amount'); 
-        
+        //HANDLE RESET
         (event.target.id === "budget__reset") && (
             this.setState({
                 select: 'plus',
@@ -115,11 +128,8 @@ class App extends React.Component {
         let select = document.getElementById('budget-select');
         let budgetDesc = document.getElementById('budget-desc');
         let budgetAmount = document.getElementById('budget-amount'); 
-        
 
-        console.log(event.which)
-
-        if(event.which === 13) {
+        if(event.which === 13 && budgetDesc.value && budgetAmount.value) {
             let value = Number(event.target.value).toFixed(2);
             
         if(select.value === "plus" && event.target.id === "budget-amount") {
@@ -127,6 +137,7 @@ class App extends React.Component {
                 sign: (Math.sign(Number(value) + Number(this.state.budget.value) ) === 1) ? "+" : "-",
                 value: (Number(this.state.budget.value) + Number(value)).toFixed(2),
             };
+
             this.setState( 
                 (prevState) => ({
                     value: {
@@ -143,7 +154,7 @@ class App extends React.Component {
                     },
                     desc: {
                         inc: [...prevState.desc.inc, budgetDesc.value],
-                        exp: prevState.desc.exp,
+                        exp: [...prevState.desc.exp],
                     },
                     current: {
                         inc: [...prevState.current.inc, budgetAmount.value],
@@ -151,10 +162,7 @@ class App extends React.Component {
                     }     
                 })
             )
-            console.log((Math.sign(Number(value) + this.state.budget.value) === 1) ? "+" : "-")
-            ///FOR TEST
-            console.log(`value: ${this.state.budget.value}`)
-            console.log(`current-inc: ${this.state.current.inc} `)
+                    
             console.log(` current-exp: ${this.state.current.exp} `)
             console.log(typeof this.state.budget.value)
         } else if(
@@ -162,6 +170,7 @@ class App extends React.Component {
             let budget = {
                 sign: (Math.sign(this.state.budget.value - Number(value) ) === 1) ? "+" : "-",
                 value: (Number(this.state.budget.value) - Number(value)).toFixed(2), 
+                
             };
 
             this.setState(
@@ -173,9 +182,7 @@ class App extends React.Component {
                 budget: {
                     sign: budget.sign,
                     value: budget.value, 
-                    /*sign: (Math.sign(prevState.budget.value - Number(value) ) === 1) ? "+" : "-",
-                    value: (Number(prevState.budget.value) - Number(value)).toFixed(2), 
-                    */
+                    
                 },
                 desc: {
                     inc: prevState.desc.inc,
@@ -186,28 +193,95 @@ class App extends React.Component {
                     exp: [...prevState.current.exp, budgetAmount.value]
                 }
             }))
-            console.log(`value: ${this.state.budget.value}`)
-            console.log(`current-inc.value: ${this.state.current.inc} `)
+           
+            
             console.log(` current-exp: ${this.state.current.exp} `)
             console.log(typeof this.state.budget.value)
         } }
 
     }
+
+    componentDidMount() {
+        let month = prompt('Please enter month: ', '');
+        let year = prompt('Please enter year: ', '');
+        
+        this.setState(
+            (prevState) => ({
+                date: {
+                    month: month || prevState.date.month,
+                    year: year || this.state.date.year
+                }
+            })
+        )
+        console.log(this.state.date)
+        
+    }
+   
 /*
-    componentDidMount(prevProps, prevState, snapshot) {
-
-    }
-    shouldComponentUpdate(prevProps, prevState, snapshot) {
-
-    }
-    componentDidUpdate(prevProps, prevState, snapshot) {
-  }
+    shouldComponentUpdate(nextProps, nextState, snapshot) {
+       
+    let select = document.getElementById('budget-select');
+    let budgetDesc = document.getElementById('budget-desc'); 
+    let budgetAmount = document.getElementById('budget-amount'); 
+        
+        if (budgetDesc.value.length > 1 && budgetAmount.value.length > 1) {
+            return true
+        } else {
+            
+        return false
+        }
+    
+    }     
 */
+    componentDidUpdate(prevProps, prevState) {
+        console.log(this.state.desc)
+        let select = document.getElementById('budget-select');
+        let budgetDesc = document.getElementById('budget-desc'); 
+        let budgetAmount = document.getElementById('budget-amount'); 
+        //Here
+        if(budgetAmount.value) {
+            budgetDesc.value = "";
+            budgetAmount.value = "";
+        }
+    }
+ 
     render() {
+
+        const currentInc = this.state.current.inc.map(
+            (currentInc, index) => (
+                Number(currentInc).toFixed(2) 
+            ));
+        const formatInc = currentInc.map(
+            (income) => (
+                income.length < 7 ? income :
+            (`${income.substr(0, income.length-6)},${income.substr(income.length-6)}` )
+        ));
+        const currentExp = this.state.current.exp.map(
+            (currentExp) => (
+                Number(currentExp).toFixed(2)
+            )
+        )
+        const formatExp = currentExp.map(
+            (expense) => (
+                expense.length < 7 ? expense :
+                `${expense.substr(0, expense.length-6)},${expense.substr(expense.length-6)}`
+            )
+        )
+        const value__inc = this.state.value.inc.length < 7 ? this.state.value.inc : `${this.state.value.inc.substr(0, this.state.value.inc.length-6)},${this.state.value.inc.substr(this.state.value.inc.length-6)}`;
+        
+        const value__exp = this.state.value.exp.length < 7 ? this.state.value.exp : `${this.state.value.exp.substr(0, this.state.value.exp.length-6)},${this.state.value.exp.substr(this.state.value.exp.length-6)}`;
+        
+        const budgetValue = this.state.budget.sign === "+" ? `${this.state.budget.sign} ${this.state.budget.value}` : `${this.state.budget.sign} ${Math.abs(this.state.budget.value).toFixed(2)}`;
+        
+        const budgetFormat = budgetValue.length < 9 ? budgetValue : `${budgetValue.substr(0, budgetValue.length - 6)},${budgetValue.substr(budgetValue.length-6)}`;
+
         let header = {
-            value__inc: this.state.value.inc,   
-            value__exp: this.state.value.exp,
-            budget: this.state.budget.sign === "+" ? `${this.state.budget.sign} ${this.state.budget.value}` : `${this.state.budget.sign} ${Math.abs(this.state.budget.value).toFixed(2)}`,
+           value__inc: value__inc,
+           value__exp: value__exp,
+
+            budget: budgetFormat,
+            month: this.state.date.month,
+            year: this.state.date.year,
         }
 
         let budget = {
@@ -218,17 +292,25 @@ class App extends React.Component {
             select: this.state.select,
             keyPress: this.handleKeyPress,
             value: {
-                inc: this.state.value.inc,
+                /*inc: this.state.value.inc,
                 exp: this.state.value.exp
+                */
+               /*inc: `${this.state.value.inc.substr(0, this.state.value.inc.length-6)},${this.state.value.inc.substr(this.state.value.inc.length-6)}`,
+               exp: this.state.value.exp
+               */
             },
             current: {
-                inc: this.state.desc.inc.map( (item, index) =>  { return (
-                    <li className="budget__item" key={`${item}-${index}`} > {item} <span className="budget__amount budget__amount--inc">+&nbsp;{Number(this.state.current.inc[index]).toFixed(2)}</span></li> )}
-                    ),
-                exp: this.state.desc.exp.map( (item, index) => {
-                    return (<li className="budget__item" key={`${item}-${index}`} >{item} <span className="budget__amount budget__amount--exp"> -&nbsp;{Number(this.state.current.exp[index]).toFixed(2)}</span></li>
-                        )
-                    }), 
+                inc: this.state.desc.inc.map( (item, index) => (
+                    <li className="budget__item" key={`${item}-${index}`} > {item} <span className="budget__amount budget__amount--inc">+&nbsp;{ 
+                    formatInc[index] }</span>
+                    </li> )
+                ),
+                exp: this.state.desc.exp.map( 
+                    (item, index) => (
+                    <li className="budget__item" key={`${item}-${index}`} > {item} <span className="budget__amount budget__amount--exp"> -&nbsp;
+                    { formatExp[index]}</span>
+                    </li>)
+                ), 
             },
             desc: {     
                 /*inc: <li className="budget__item">{this.state.desc.inc} <span className="budget__amount"> +&nbsp; {this.state.value.inc}</span></li>,
@@ -239,12 +321,13 @@ class App extends React.Component {
                 exp: this.state.desc.exp,*/
             }  
         }
-
+        const fallback = <p> Loading... please wait</p>
         return(
             <ErrorBoundary>    
                 <div className="container">
+                    <React.Suspense fallback={fallback} >
                     <Header {...header} />
-                    
+                    </React.Suspense>
                     <Budget {...budget}  />
                     
                     <Footer />

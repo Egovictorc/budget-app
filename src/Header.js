@@ -22,7 +22,7 @@ function Header(props) {
     return(
         <header className="header" >
         
-        <h1 className="heading header__description"> available budget in {monthArray[month]} {year} </h1>
+        <h1 className="heading header__description"> available budget in {props.month} {props.year} </h1>
 
         <div className="revenue-net"> {props.budget} </div>
 

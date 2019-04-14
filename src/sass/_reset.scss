@@ -23,6 +23,7 @@
     --font-standard: 1.6rem;
 
     //PADDING
+    --padding-side: 1.4rem;
     --padding-medium: 1.4rem;
     --padding-small: 1.2rem;
 
@@ -40,18 +41,18 @@ body{
 .container {
     width: 100vw;
     height: 100vh;
-    
+
 
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: minmax(40vmin, 26rem) 1fr 6vmin ;
-    
+
 
     //align-content: stretch;
 
     & > * {
         grid-column: 1 / -1;
-        
+
     }
 
 }

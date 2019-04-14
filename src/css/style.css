@@ -18,6 +18,7 @@
   --font-small: 2.4rem;
   --font-xsmall: 2.0rem;
   --font-standard: 1.6rem;
+  --padding-side: 1.4rem;
   --padding-medium: 1.4rem;
   --padding-small: 1.2rem;
 }
@@ -136,7 +137,7 @@ body {
               background-color: orange;
   
               & > tr {
-                  
+  
               }
               &--inc,
               &--exp {
@@ -195,14 +196,19 @@ body {
   color: #000;
 }
 .budget__item {
-  padding: var(--padding-medium);
+  padding-left: var(--padding-side);
   border-top: 1px solid var(--color-grey-dark);
   list-style-type: none;
   text-transform: capitalize;
   display: grid;
-  grid-template-columns: 5fr 1fr;
+  grid-template-columns: 5fr 1.5fr 0.8fr;
+  align-items: center;
+}
+.budget__item:nth-child(2n) {
+  background-color: var(--color-grey-light);
 }
 .budget__item:first-child {
+  padding: var(--padding-medium);
   text-transform: uppercase;
   border: none;
 }
@@ -212,11 +218,22 @@ body {
 .budget__item:first-child[data-type=expenses] {
   color: var(--color-secondary);
 }
+.budget__amount {
+  justify-self: start;
+}
 .budget__amount--inc {
   color: var(--color-primary);
 }
 .budget__amount--exp {
   color: var(--color-secondary);
+}
+.budget__delete {
+  cursor: pointer;
+  padding: var(--padding-side) 0px;
+  text-transform: capitalize;
+  text-align: center;
+  color: var(--color-secondary);
+  border-left: 1px solid var(--color-grey-dark);
 }
 
 .active-primary {

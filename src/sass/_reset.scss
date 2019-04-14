@@ -1,5 +1,19 @@
 /*  Bdget-App stylesheet  */
+/* RESPONSIVE BREAKPOINTS
+    DESKTOP FIRST DESIGN IMPLEMENTED
+*/
+$bp-large: 56.25em; //900px;
+$bp-medium: 43.75em;  //700px;
+$bp-small: 31.25em;  //500px;
 
+
+// RESPONSIVE BREAKPOINTS
+/*$bp-xlarge: 75em;   // 1200px
+$bp-large: 62.5em;   // 1000px
+$bp-medium: 50em;    // 800px;
+$bp-small: 37.5em;    // 600px;
+$bp-xsmall: 25em;     //400px;
+*/
 *,
 *::before,
 *::after {
@@ -8,7 +22,6 @@
     box-sizing: border-box;
 }
 :root {
-
     //COLOR
     --color-primary: rgb(37, 195, 37);
     --color-secondary: rgb(207, 38, 38);
@@ -17,6 +30,7 @@
     --color-overlay-dark: rgba(0,0,0,.5);
     //FONT
     --font-big: 7rem;
+    --font-xmedium: 5rem;
     --font-medium: 2.8rem;
     --font-small: 2.4rem;
     --font-xsmall: 2.0rem;
@@ -40,19 +54,15 @@ body{
 
 .container {
     width: 100vw;
-    height: 100vh;
-
-
+    min-height: 100vh;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: minmax(40vmin, 26rem) 1fr 6vmin ;
+    grid-template-rows: minmax(40vh, 26rem) 1fr 6vmin ;
 
-
+   
     //align-content: stretch;
-
     & > * {
         grid-column: 1 / -1;
 
     }
-
 }

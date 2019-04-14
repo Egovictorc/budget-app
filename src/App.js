@@ -302,7 +302,7 @@ class App extends React.Component {
                 inc: this.state.desc.inc.map( (item, index) => (
                     <li id={`${item}-${index}`} className="budget__item" key={`${item}-${index}`} onClick={this.handleClick}  data-value={item}> {item} <span className="budget__amount budget__amount--inc">+&nbsp;{
                     formatInc[index] }</span>
-                    <span id={ `budget-del-inc-${index}` } className="budget__delete budget__del-inc"> del</span>
+                    <span id={ `budget-del-inc-${index}` } className="budget__delete budget__del-inc" title="delete Entry"> del</span>
                     </li> )
                 ),
                 exp: this.state.desc.exp.map(
@@ -325,6 +325,8 @@ class App extends React.Component {
         const fallback = <p> Loading... please wait</p>
         return(
             <ErrorBoundary>
+                <React.StrictMode>
+                    
                 <div className="container">
                     <React.Suspense fallback={fallback} >
                     <Header {...header} />
@@ -333,6 +335,7 @@ class App extends React.Component {
 
                     <Footer />
                 </div>
+                </React.StrictMode>
             </ErrorBoundary>
         )
     }

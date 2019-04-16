@@ -9,7 +9,7 @@
     &__desc {
         padding: 1rem 10%;
         width: 100%;
-        background-color: var(--color-grey-light);
+        background-color: var(--color-tertiary);
 
         /*display: flex;
         flex-direction: row;
@@ -36,7 +36,7 @@
         & > * {
             padding: 1.4rem;
             //margin: 1rem 1rem 1rem 0;
-            //border: 1px solid var(--color-grey-light);
+            //border: 1px solid var(--color-tertiary);
             border-radius: .3rem;
             border: none;
 
@@ -144,7 +144,7 @@
         }
 
         &:nth-child(2n) {
-            background-color: var(--color-grey-light);
+            background-color: var(--color-tertiary);
         }
 
         &:first-child {
@@ -165,7 +165,7 @@
     &__amount {
         justify-self: start;
         &--inc {
-            color: var(--color-primary);
+            color: #fff;
         }
         &--exp {
             color: var(--color-secondary);
@@ -182,52 +182,11 @@
         //background-color: red;
 
     }
-/*
-    &-table {
-        border-spacing: 2rem;
-        width: 100%;
-        text-align: left;
-
-        &__head {
-            & > * {
-                background-color: red;
-            }
-
-            &--inc,
-            &--exp {
-                padding: 2rem 0;
-                text-transform: uppercase;
-                width: 40%;
-            }
-
-            &--inc {
-                color: var(--color-primary);
-            }
-            &--exp {
-                color: var(--color-secondary);
-            }
-        }
-
-        &__body {
-            width: 100%;
-            background-color: orange;
-
-            & > tr {
-
-            }
-            &--inc,
-            &--exp {
-                padding: 1rem 0;
-                text-transform: capitalize;
-                width: 40%;
-            }
-        }
-    }*/
 }
 
 //COMPONENTS
 .active-primary {
-    border: .1rem solid var(--color-primary);
+            border: .1rem solid rgb(3, 114, 42);
 }
 
 .active-secondary {

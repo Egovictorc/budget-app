@@ -4,6 +4,9 @@ import './css/style.css';
 import Budget from './Budget';
 import Footer from './Footer';
 import ErrorBoundary from './ErrorBoundary';
+import UniqueId from "react-html-id";
+
+
 
 const Header = React.lazy( ()=> import('./Header'));
 const year = new Date().getFullYear();
@@ -37,6 +40,7 @@ class App extends React.Component {
                 exp: [],
             }
         };
+        UniqueId.enableUniqueIds(this);
 
         this.selectRef = React.createRef();
         this.handleBlur = this.handleBlur.bind(this);
@@ -102,7 +106,7 @@ class App extends React.Component {
                 inc: [],
                 exp: [],
             },
-        desc: {
+            desc: {
             inc: [],
             exp: []
         }})
@@ -202,14 +206,17 @@ class App extends React.Component {
     }
 
     componentDidMount() {
+        let validYear = /[1-9]/i;
         let month = prompt('Please enter month: ', '');
         let year = prompt('Please enter year: ', '');
-
+        // DATE VALIDATION
+        /*let year = validYear.test( prompt('Please enter year: ', '') ) ? this.state.date.year : prompt('Please enter valid year: ', '') ;
+        */
         this.setState(
             (prevState) => ({
                 date: {
                     month: month || prevState.date.month,
-                    year: year || this.state.date.year
+                    year: year || prevState.date.year
                 }
             })
         )
@@ -300,14 +307,14 @@ class App extends React.Component {
             },
             current: {
                 inc: this.state.desc.inc.map( (item, index) => (
-                    <li id={`${item}-${index}`} className="budget__item" key={`${item}-${index}`} onClick={this.handleClick}  data-value={item}> {item} <span className="budget__amount budget__amount--inc">+&nbsp;{
+                    <li id={this.nextUniqueId()} className="budget__item" key={`${item}-${index}`} onClick={this.handleClick}  data-value={item}> {item} <span className="budget__amount budget__amount--inc">+&nbsp;{
                     formatInc[index] }</span>
                     <span id={ `budget-del-inc-${index}` } className="budget__delete budget__del-inc" title="delete Entry"> del</span>
                     </li> )
                 ),
                 exp: this.state.desc.exp.map(
                     (item, index) => (
-                    <li className="budget__item" key={`${item}-${index}`} onClick={this.handleClick} > {item} <span className="budget__amount budget__amount--exp"> -&nbsp;
+                    <li className="budget__item" key={this.nextUniqueId()} onClick={this.handleClick} > {item} <span className="budget__amount budget__amount--exp"> -&nbsp;
                     { formatExp[index]}</span>
                     <span id={ `budget-del-exp-${index}` }  className="budget__delete budget__del-exp" title="delete Entry"> del</span>
                     </li>)

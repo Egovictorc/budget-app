@@ -17,9 +17,10 @@ $bp-xsmall: 25em;     //400px;
 }
 
 :root {
-  --color-primary: rgb(37, 195, 37);
+  --color-primary: mediumSeaGreen;
   --color-secondary: rgb(207, 38, 38);
   --color-grey-light: rgb(253, 239, 239);
+  --color-tertiary: rgb(167, 178, 189);
   --color-grey-dark: rgb(209, 202, 202);
   --color-overlay-dark: rgba(0,0,0,.5);
   --font-big: 7rem;
@@ -128,52 +129,11 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /*
-      &-table {
-          border-spacing: 2rem;
-          width: 100%;
-          text-align: left;
-  
-          &__head {
-              & > * {
-                  background-color: red;
-              }
-  
-              &--inc,
-              &--exp {
-                  padding: 2rem 0;
-                  text-transform: uppercase;
-                  width: 40%;
-              }
-  
-              &--inc {
-                  color: var(--color-primary);
-              }
-              &--exp {
-                  color: var(--color-secondary);
-              }
-          }
-  
-          &__body {
-              width: 100%;
-              background-color: orange;
-  
-              & > tr {
-  
-              }
-              &--inc,
-              &--exp {
-                  padding: 1rem 0;
-                  text-transform: capitalize;
-                  width: 40%;
-              }
-          }
-      }*/
 }
 .budget__desc {
   padding: 1rem 10%;
   width: 100%;
-  background-color: var(--color-grey-light);
+  background-color: var(--color-tertiary);
   /*display: flex;
   flex-direction: row;
   justify-content: center;
@@ -283,7 +243,7 @@ body {
   }
 }
 .budget__item:nth-child(2n) {
-  background-color: var(--color-grey-light);
+  background-color: var(--color-tertiary);
 }
 .budget__item:first-child {
   padding: var(--padding-medium);
@@ -300,7 +260,7 @@ body {
   justify-self: start;
 }
 .budget__amount--inc {
-  color: var(--color-primary);
+  color: #fff;
 }
 .budget__amount--exp {
   color: var(--color-secondary);
@@ -315,7 +275,7 @@ body {
 }
 
 .active-primary {
-  border: 0.1rem solid var(--color-primary);
+  border: 0.1rem solid #03722a;
 }
 
 .active-secondary {
@@ -324,7 +284,7 @@ body {
 
 .footer {
   grid-row: -2/-1;
-  background-color: var(--color-overlay-dark);
+  background-color: var(--color-primary);
   font-size: 1.2rem;
   text-align: center;
   align-self: end;

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 /*
 import BudgetDescription from './BudgetDescription';
 import BudgetComputation from './BudgetComputation';
@@ -16,6 +17,7 @@ function Budget(props) {
         onFocus: props.handleFocus,
         value: props.select,
         onChange: props.handleChange,
+        
     }
     
     let input = {
@@ -44,15 +46,22 @@ function Budget(props) {
         onFocus: props.handleFocus,
         onBlur: props.handleBlur,
     }
-    
+    let options = [
+        {value: "plus", sign: "+"},
+        {value: "minus", sign: "-"}, 
+    ]
 
     return(
         <main className="budget">
             <section className="budget__desc">
 
                 <select id="budget-select" className="budget__desc--select" {...select} >
-                    <option value="plus">+</option>
+                    {/*<option value="plus">+</option>
                     <option value="minus">-</option>
+                    */ }
+                    {  options.map(item => (
+                    <option value={ item.value }> {item.sign} </option> 
+                )) } 
                 </select>
 
                 <input type="text" {...input.text} />
@@ -112,57 +121,9 @@ function Budget(props) {
         </main>
     )
 }
-
 /*
-//Class
-class Budget extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-
-        }
-    }
-
-    render () {
-        return(
-            <main className="budget">
-                <section className="budget__desc">
-    
-                    <select id="budget-select" className="budget__desc--select" onChange={this.props.handleSelect} value="plus">
-                        <option value="plus">+</option>
-                        <option value="minus">-</option>
-                    </select>
-    
-                    <input id="budget-desc" className="budget__desc--input" type="text" name="description" placeholder="Add description" />
-    
-                    <input id="budget-amount" className="budget__desc--input" type="number" name="amount" placeholder="Value" />
-                </section>
-                
-    
-                <section className="budget__calc">
-                    <table className="budget-table">
-                        <thead className="budget-table__head">
-                            <tr>
-                                <th className="budget-table__head--inc">income</th>
-                                <th className="budget-table__head--exp">expenses</th>
-                            </tr>   
-                        </thead>
-    
-                        <tbody className="budget-table__body">
-                            <tr>
-                                <td className="budget-table__body--inc">Transport</td>
-                                <td className="budget-table__body--exp">Transport</td>
-                            </tr>
-                            <tr>
-                                <td className="budget-table__body--exp">Transport</td>
-                                <td className="budget-table__body--exp">Transport</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </section>
-            </main>
-        )
-    }
+Budget.propTypes = {
+    current: PropTypes.string,
 }
 */
 export default Budget;
